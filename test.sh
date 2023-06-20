@@ -10,8 +10,8 @@ predict_path=resources/campaigns/biscuits/eval.csv
 processor=cpu
 
 # Run tests
-$dir/get_versions.sh &&
 $dir/get_user.sh &&
+$dir/get_versions.sh &&
 $dir/upload_dataset.sh $dataset_path $dataset_name &&
 $dir/list_datasets.sh &&
 $dir/view_dataset.sh $dataset_name &&

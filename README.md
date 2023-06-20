@@ -24,14 +24,14 @@ source api.sh
 
 The scripts in the [`examples`](./examples) folder demonstrate how to use these functions.
 
-### Versions
-```shell
-sh examples/get_versions.sh
-```
-
 ### User
 ```shell
 sh examples/get_user.sh
+```
+
+### Versions
+```shell
+sh examples/get_versions.sh
 ```
 
 ### Upload a Dataset
