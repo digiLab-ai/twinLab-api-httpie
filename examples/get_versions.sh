@@ -1,3 +1,3 @@
 source "$(dirname "$0")/../api.sh"
 
-info_versions
+get_versions

@@ -1,53 +1,35 @@
-info_versions() {
-    source ".env"
+source ".env"
+
+RAPID_HEADERS=""X-RapidAPI-Key:${TWINLAB_KEY}" "X-RapidAPI-Host:${TWINLAB_HOST}""
+OTHER_HEADERS=""X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" "X-RapidAPI-User:${TWINLAB_USERNAME}""
+if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
+    headers=${RAPID_HEADERS}
+else
+    headers=${OTHER_HEADERS}
+fi
+
+get_versions() {
 
     url="${TWINLAB_SERVER}/versions"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
-info_user() {
-    source ".env"
+get_user() {
 
     url="${TWINLAB_SERVER}/user"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
 list_datasets() {
-    source ".env"
 
     url="${TWINLAB_SERVER}/datasets"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
 upload_dataset() {
-    source ".env"
 
     if [ -z "$2" ]; then
         echo "Usage: $0 <path/to/datase.csv> <dataset_id>"
@@ -57,24 +39,12 @@ upload_dataset() {
     dataset_id=$2
 
     url="${TWINLAB_SERVER}/datasets/${dataset_id}"
-
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        cat ${dataset_path} |
-            http PUT ${url} \
-                "X-RapidAPI-Key:${TWINLAB_KEY}" \
-                "X-RapidAPI-Host:${TWINLAB_HOST}" \
-                "Content-Type:text/csv"
-    else
-        cat ${dataset_path} |
-            http PUT ${url} \
-                "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-                "X-RapidAPI-User:${TWINLAB_USERNAME}" \
-                "Content-Type:text/csv"
-    fi
+    cat ${dataset_path} |
+        http PUT ${url} ${headers} \
+            "Content-Type:text/csv"
 }
 
 view_dataset() {
-    source ".env"
 
     if [ -z "$1" ]; then
         echo "Usage: $0 <dataset_id>"
@@ -83,20 +53,11 @@ view_dataset() {
     dataset_id=$1
 
     url="${TWINLAB_SERVER}/datasets/${dataset_id}"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
 summarise_dataset() {
-    source ".env"
 
     if [ -z "$1" ]; then
         echo "Usage: $0 <dataset_id>"
@@ -105,20 +66,11 @@ summarise_dataset() {
     dataset_id=$1
 
     url="${TWINLAB_SERVER}/datasets/${dataset_id}/summarise"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
 delete_dataset() {
-    source ".env"
 
     if [ -z "$1" ]; then
         echo "Usage: $0 <dataset_id>"
@@ -127,36 +79,18 @@ delete_dataset() {
     dataset_id=$1
 
     url="${TWINLAB_SERVER}/datasets/${dataset_id}"
+    http DELETE ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http DELETE ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http DELETE ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
 list_models() {
-    source ".env"
 
     url="${TWINLAB_SERVER}/models"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
 train_model() {
-    source ".env"
 
     if [ -z "$3" ]; then
         echo "Usage: $0 <path/to/parameters.csv> <model_id> <processor>"
@@ -167,26 +101,14 @@ train_model() {
     processor=$3
 
     url="${TWINLAB_SERVER}/models/${model_id}"
+    cat ${training_parameters_path} |
+        http PUT ${url} ${headers} \
+            "X-Processor:${processor}" \
+            "Content-Type:application/json"
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        cat ${training_parameters_path} |
-            http PUT ${url} \
-                "X-RapidAPI-Key:${TWINLAB_KEY}" \
-                "X-RapidAPI-Host:${TWINLAB_HOST}" \
-                "X-Processor:${processor}" \
-                "Content-Type:application/json"
-    else
-        cat ${training_parameters_path} |
-            http PUT ${url} \
-                "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-                "X-RapidAPI-User:${TWINLAB_USERNAME}" \
-                "X-Processor:${processor}" \
-                "Content-Type:application/json"
-    fi
 }
 
 status_model() {
-    source ".env"
 
     if [ -z "$1" ]; then
         echo "Usage: $0 <model_id>"
@@ -195,20 +117,12 @@ status_model() {
     model_id=$1
 
     url="${TWINLAB_SERVER}/models/${model_id}"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
 summarise_model() {
-    source ".env"
+
 
     if [ -z "$1" ]; then
         echo "Usage: $0 <model_id>"
@@ -217,20 +131,11 @@ summarise_model() {
     model_id=$1
 
     url="${TWINLAB_SERVER}/models/${model_id}/summarise"
+    http GET ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http GET ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http GET ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
 
-predict_model() {
-    source ".env"
+use_model() {
 
     if [ -z "$3" ]; then
         echo "Usage: $0 <path/to/inputs.csv> <model_id> <method> <processor>"
@@ -242,26 +147,13 @@ predict_model() {
     processor_type=$4
 
     url="${TWINLAB_SERVER}/models/${model_id}/${method}"
+    http POST ${url} ${headers} \
+        "X-Processor:${processor_type}" \
+        "Content-Type:text/csv"
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        cat ${prediction_input_path} |
-            http POST ${url} \
-                "X-RapidAPI-Key:${TWINLAB_KEY}" \
-                "X-RapidAPI-Host:${TWINLAB_HOST}" \
-                "X-Processor:${processor_type}" \
-                "Content-Type:text/csv"
-    else
-        cat ${prediction_input_path} |
-            http POST ${url} \
-                "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-                "X-RapidAPI-User:${TWINLAB_USERNAME}" \
-                "X-Processor:${processor_type}" \
-                "Content-Type:text/csv"
-    fi
 }
 
 delete_model() {
-    source ".env"
 
     if [ -z "$1" ]; then
         echo "Usage: $0 <model_id>"
@@ -270,14 +162,6 @@ delete_model() {
     model_id=$1
 
     url="${TWINLAB_SERVER}/models/${model_id}"
+    http DELETE ${url} ${headers}
 
-    if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-        http DELETE ${url} \
-            "X-RapidAPI-Key:${TWINLAB_KEY}" \
-            "X-RapidAPI-Host:${TWINLAB_HOST}"
-    else
-        http DELETE ${url} \
-            "X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" \
-            "X-RapidAPI-User:${TWINLAB_USERNAME}"
-    fi
 }
