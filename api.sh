@@ -11,7 +11,7 @@ fi
 get_versions() {
 
     url="${TWINLAB_SERVER}/versions"
-    http GET ${url} ${headers}
+    http GET ${url}
 
 }
 
@@ -147,6 +147,7 @@ use_model() {
     processor_type=$4
 
     url="${TWINLAB_SERVER}/models/${model_id}/${method}"
+    cat ${prediction_input_path} |
     http POST ${url} ${headers} \
         "X-Processor:${processor_type}" \
         "Content-Type:text/csv"

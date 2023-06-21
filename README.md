@@ -76,8 +76,8 @@ sh examples/summarise_model.sh biscuits-model
 
 ### Make predictions from a trained model
 ```shell
-sh examples/predict_model.sh <path/to/input.csv> <model_id> <processor>
-sh examples/predict_model.sh resources/campaigns/biscuits/eval.csv biscuits-model predict cpu
+sh examples/use_model.sh <path/to/input.csv> <model_id> <method> <processor>
+sh examples/use_model.sh resources/campaigns/biscuits/eval.csv biscuits-model predict cpu
 ```
 
 ### Delete a model
