@@ -139,10 +139,10 @@ delete_dataset() {
     fi
 }
 
-list_campaigns() {
+list_models() {
     source ".env"
 
-    url="${TWINLAB_SERVER}/campaigns"
+    url="${TWINLAB_SERVER}/models"
 
     if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
         http GET ${url} \
@@ -155,18 +155,18 @@ list_campaigns() {
     fi
 }
 
-train_campaign() {
+train_model() {
     source ".env"
 
     if [ -z "$3" ]; then
-        echo "Usage: $0 <path/to/parameters.csv> <campaign_id> <processor>"
+        echo "Usage: $0 <path/to/parameters.csv> <model_id> <processor>"
         exit 1
     fi
     training_parameters_path=$1
-    campaign_id=$2
+    model_id=$2
     processor=$3
 
-    url="${TWINLAB_SERVER}/campaigns/${campaign_id}"
+    url="${TWINLAB_SERVER}/models/${model_id}"
 
     if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
         cat ${training_parameters_path} |
@@ -185,16 +185,16 @@ train_campaign() {
     fi
 }
 
-status_campaign() {
+status_model() {
     source ".env"
 
     if [ -z "$1" ]; then
-        echo "Usage: $0 <campaign_id>"
+        echo "Usage: $0 <model_id>"
         exit 1
     fi
-    campaign_id=$1
+    model_id=$1
 
-    url="${TWINLAB_SERVER}/campaigns/${campaign_id}"
+    url="${TWINLAB_SERVER}/models/${model_id}"
 
     if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
         http GET ${url} \
@@ -207,16 +207,16 @@ status_campaign() {
     fi
 }
 
-summarise_campaign() {
+summarise_model() {
     source ".env"
 
     if [ -z "$1" ]; then
-        echo "Usage: $0 <campaign_id>"
+        echo "Usage: $0 <model_id>"
         exit 1
     fi
-    campaign_id=$1
+    model_id=$1
 
-    url="${TWINLAB_SERVER}/campaigns/${campaign_id}/summarise"
+    url="${TWINLAB_SERVER}/models/${model_id}/summarise"
 
     if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
         http GET ${url} \
@@ -229,19 +229,19 @@ summarise_campaign() {
     fi
 }
 
-predict_campaign() {
+predict_model() {
     source ".env"
 
     if [ -z "$3" ]; then
-        echo "Usage: $0 <path/to/inputs.csv> <campaign_id> <method> <processor>"
+        echo "Usage: $0 <path/to/inputs.csv> <model_id> <method> <processor>"
         exit 1
     fi
     prediction_input_path=$1
-    campaign_id=$2
+    model_id=$2
     method=$3
     processor_type=$4
 
-    url="${TWINLAB_SERVER}/campaigns/${campaign_id}/${method}"
+    url="${TWINLAB_SERVER}/models/${model_id}/${method}"
 
     if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
         cat ${prediction_input_path} |
@@ -260,16 +260,16 @@ predict_campaign() {
     fi
 }
 
-delete_campaign() {
+delete_model() {
     source ".env"
 
     if [ -z "$1" ]; then
-        echo "Usage: $0 <campaign_id>"
+        echo "Usage: $0 <model_id>"
         exit 1
     fi
-    campaign_id=$1
+    model_id=$1
 
-    url="${TWINLAB_SERVER}/campaigns/${campaign_id}"
+    url="${TWINLAB_SERVER}/models/${model_id}"
 
     if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
         http DELETE ${url} \
