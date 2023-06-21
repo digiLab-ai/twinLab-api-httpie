@@ -24,69 +24,69 @@ source api.sh
 
 The scripts in the [`examples`](./examples) folder demonstrate how to use these functions.
 
-### User
+### Show user information
 ```shell
 sh examples/get_user.sh
 ```
 
-### Versions
+### Show version information
 ```shell
 sh examples/get_versions.sh
 ```
 
-### Upload a Dataset
+### Upload a dataset
 ```shell
 sh examples/upload_dataset.sh <path/to/dataset.csv> <dataset_id>
 sh examples/upload_dataset.sh resources/datasets/biscuits.csv biscuits
 ```
 
-### List Datasets
+### List datasets
 ```shell
 sh examples/list_datasets.sh
 ```
 
-### View a Dataset
+### View a dataset
 ```shell
 sh examples/view_dataset.sh <dataset_id>
 sh examples/view_dataset.sh biscuits
 ```
 
-### Summarise a Dataset
+### Summarise a dataset
 ```shell
 sh examples/summarise_dataset.sh <dataset_id>
 sh examples/summarise_dataset.sh biscuits
 ```
 
-### Train Campaigns
+### Train model
 ```shell
-sh examples/train_campaign.sh <path/to/parameters.json> <campaign_id> <processor>
-sh examples/train_campaign.sh resources/campaigns/biscuits/parameters.json biscuits-campaign cpu
+sh examples/train_model.sh <path/to/parameters.json> <model_id> <processor>
+sh examples/train_model.sh resources/campaigns/biscuits/parameters.json biscuits-model cpu
 ```
 
-### List Campaigns
+### List trained models
 ```shell
-sh examples/list_campaigns.sh
+sh examples/list_models.sh
 ```
 
-### Summarise a Campaign
+### Summarise a trained model
 ```shell
-sh examples/summarise_campaign.sh <campaign_id>
-sh examples/summarise_campaign.sh biscuits-campaign
+sh examples/summarise_model.sh <model_id>
+sh examples/summarise_model.sh biscuits-model
 ```
 
-### Make Predictions
+### Make predictions from a trained model
 ```shell
-sh examples/predict_campaign.sh <path/to/input.csv> <campaign_id> <processor>
-sh examples/predict_campaign.sh resources/campaigns/biscuits/eval.csv biscuits-campaign predict cpu
+sh examples/predict_model.sh <path/to/input.csv> <model_id> <processor>
+sh examples/predict_model.sh resources/campaigns/biscuits/eval.csv biscuits-model predict cpu
 ```
 
-### Delete a Campaign
+### Delete a model
 ```shell
-sh examples/delete_campaign.sh <campaign_id>
-sh examples/delete_campaign.sh biscuits-campaign
+sh examples/delete_model.sh <model_id>
+sh examples/delete_model.sh biscuits-model
 ```
 
-### Delete a Dataset
+### Delete a dataset
 ```shell
 sh examples/delete_dataset.sh <dataset_id>
 sh examples/delete_dataset.sh biscuits
