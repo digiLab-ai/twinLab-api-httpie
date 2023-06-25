@@ -41,7 +41,7 @@ upload_dataset() {
     url="${TWINLAB_SERVER}/datasets/${dataset_id}"
     cat ${dataset_path} |
         http PUT ${url} ${headers} \
-            "Content-Type:text/csv"
+            "Content-Type:text/plain"
 }
 
 view_dataset() {
@@ -150,7 +150,7 @@ use_model() {
     cat ${prediction_input_path} |
     http POST ${url} ${headers} \
         "X-Processor:${processor_type}" \
-        "Content-Type:text/csv"
+        "Content-Type:text/plain"
 
 }
 
