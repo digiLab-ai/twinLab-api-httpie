@@ -9,28 +9,21 @@ else
 fi
 
 get_user() {
-
     url="${TWINLAB_SERVER}/user"
     http GET ${url} ${headers}
-
 }
 
 get_versions() {
-
     url="${TWINLAB_SERVER}/versions"
     http GET ${url} ${headers}
-
 }
 
 list_datasets() {
-
     url="${TWINLAB_SERVER}/datasets"
     http GET ${url} ${headers}
-
 }
 
 upload_dataset() {
-
     if [ -z "$2" ]; then
         echo "Usage: $0 <path/to/datase.csv> <dataset_id>"
         exit 1
@@ -45,7 +38,6 @@ upload_dataset() {
 }
 
 view_dataset() {
-
     if [ -z "$1" ]; then
         echo "Usage: $0 <dataset_id>"
         exit 1
@@ -54,11 +46,9 @@ view_dataset() {
 
     url="${TWINLAB_SERVER}/datasets/${dataset_id}"
     http GET ${url} ${headers}
-
 }
 
 summarise_dataset() {
-
     if [ -z "$1" ]; then
         echo "Usage: $0 <dataset_id>"
         exit 1
@@ -67,11 +57,9 @@ summarise_dataset() {
 
     url="${TWINLAB_SERVER}/datasets/${dataset_id}/summarise"
     http GET ${url} ${headers}
-
 }
 
 delete_dataset() {
-
     if [ -z "$1" ]; then
         echo "Usage: $0 <dataset_id>"
         exit 1
@@ -80,18 +68,14 @@ delete_dataset() {
 
     url="${TWINLAB_SERVER}/datasets/${dataset_id}"
     http DELETE ${url} ${headers}
-
 }
 
 list_models() {
-
     url="${TWINLAB_SERVER}/models"
     http GET ${url} ${headers}
-
 }
 
 train_model() {
-
     if [ -z "$3" ]; then
         echo "Usage: $0 <path/to/parameters.csv> <model_id> <processor>"
         exit 1
@@ -105,11 +89,9 @@ train_model() {
         http PUT ${url} ${headers} \
             "X-Processor:${processor}" \
             "Content-Type:application/json"
-
 }
 
 status_model() {
-
     if [ -z "$1" ]; then
         echo "Usage: $0 <model_id>"
         exit 1
@@ -118,11 +100,9 @@ status_model() {
 
     url="${TWINLAB_SERVER}/models/${model_id}"
     http GET ${url} ${headers}
-
 }
 
 summarise_model() {
-
     if [ -z "$1" ]; then
         echo "Usage: $0 <model_id>"
         exit 1
@@ -131,11 +111,9 @@ summarise_model() {
 
     url="${TWINLAB_SERVER}/models/${model_id}/summarise"
     http GET ${url} ${headers}
-
 }
 
 use_model() {
-
     if [ -z "$3" ]; then
         echo "Usage: $0 <path/to/inputs.csv> <model_id> <method> <processor>"
         exit 1
@@ -147,14 +125,12 @@ use_model() {
 
     url="${TWINLAB_SERVER}/models/${model_id}/${method}"
     cat ${prediction_input_path} |
-    http POST ${url} ${headers} \
-        "X-Processor:${processor_type}" \
-        "Content-Type:text/plain"
-
+        http POST ${url} ${headers} \
+            "X-Processor:${processor_type}" \
+            "Content-Type:text/plain"
 }
 
 delete_model() {
-
     if [ -z "$1" ]; then
         echo "Usage: $0 <model_id>"
         exit 1
@@ -163,5 +139,4 @@ delete_model() {
 
     url="${TWINLAB_SERVER}/models/${model_id}"
     http DELETE ${url} ${headers}
-
 }
