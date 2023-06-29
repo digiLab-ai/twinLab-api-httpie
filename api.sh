@@ -8,16 +8,16 @@ else
     headers=${OTHER_HEADERS}
 fi
 
-get_versions() {
-
-    url="${TWINLAB_SERVER}/versions"
-    http GET ${url}
-
-}
-
 get_user() {
 
     url="${TWINLAB_SERVER}/user"
+    http GET ${url} ${headers}
+
+}
+
+get_versions() {
+
+    url="${TWINLAB_SERVER}/versions"
     http GET ${url} ${headers}
 
 }
@@ -122,7 +122,6 @@ status_model() {
 }
 
 summarise_model() {
-
 
     if [ -z "$1" ]; then
         echo "Usage: $0 <model_id>"
