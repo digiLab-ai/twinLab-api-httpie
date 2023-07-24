@@ -24,6 +24,34 @@ source api.sh
 
 The scripts in the [`examples`](./examples) folder demonstrate how to use these functions.
 
--   [`Get user information`](./examples/get_user.sh)
--   [`Upload a dataset`](./examples/upload_dataset.sh)
--   [`Delete a dataset`](./examples/delete_dataset.sh)
+### Admin commands
+
+-   [Create a user](./examples/create_user.sh)
+-   [View the database](./examples/get_database.sh)
+
+### User commands
+
+#### Information
+
+-   [View the stack versions](./examples/get_versions.sh)
+
+#### Profile
+
+-   [View user profile](./examples/get_user.sh)
+
+#### Dataset management
+
+-   [List a user's datasets](./examples/list_datasets.sh)
+-   [Upload a dataset](./examples/upload_dataset.sh)
+-   [Summarise a dataset](./examples/summarise_dataset.sh)
+-   [Download a dataset](./examples/view_dataset.sh)
+-   [Delete a dataset](./examples/delete_dataset.sh)
+
+#### Model management
+
+-   [List a user's models](./examples/list_models.sh)
+-   [Train a model](./examples/train_model.sh)
+-   [View the training status of a model](./examples/status_model.sh)
+-   [Summarise a model](./examples/summarise_model.sh)
+-   [Use a trained model](./examples/use_model.sh)
+-   [Delete a model](./examples/delete_model.sh)
