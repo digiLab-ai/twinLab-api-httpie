@@ -1,20 +1,33 @@
 source ".env"
 
-RAPID_HEADERS=""X-RapidAPI-Key:${TWINLAB_KEY}" "X-RapidAPI-Host:${TWINLAB_HOST}""
-OTHER_HEADERS=""X-RapidAPI-Proxy-Secret:${TWINLAB_SECRET}" "X-RapidAPI-User:${TWINLAB_USERNAME}""
-if [[ ${TWINLAB_SERVER} == *"rapidapi"* ]]; then
-    headers=${RAPID_HEADERS}
-else
-    headers=${OTHER_HEADERS}
-fi
-
-get_user() {
-    url="${TWINLAB_SERVER}/user"
-    http GET ${url} ${headers}
-}
+headers=""X-api_key:${TWINLAB_KEY}" "X-language:httpie""
 
 get_versions() {
     url="${TWINLAB_SERVER}/versions"
+    http GET ${url} ${headers}
+}
+
+get_database() {
+    url="${TWINLAB_SERVER}/database"
+    http GET ${url} ${headers}
+}
+
+create_user() {
+    if [ -z "$2" ]; then
+        echo "Usage: $0 <path/to/parameters.json> <user_name>"
+        exit 1
+    fi
+    user_parameters_path=$1
+    user_name=$2
+
+    url="${TWINLAB_SERVER}/user/${user_name}"
+    cat ${user_parameters_path} |
+        http PUT ${url} ${headers} \
+            "Content-Type:application/json"
+}
+
+get_user() {
+    url="${TWINLAB_SERVER}/user"
     http GET ${url} ${headers}
 }
 
