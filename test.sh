@@ -30,4 +30,5 @@ done &&
     use_model $predict_path $model_name "predict" $processor &&
     delete_model $model_name &&
     delete_dataset $dataset_name &&
-    echo "All tests passed!"
+    echo "All tests PASSED!" ||
+    echo "Tests fave FAILED!"
